@@ -2,16 +2,6 @@
 
 void StartState::Init()
 {
-	// Load in our font
-	if (!font_.loadFromFile("Pacifico.ttf"))
-	{
-		std::cout << "Failed to load font" << std::endl;
-	}
-	else
-	{
-		std::cout << "Font successfully loaded" << std::endl;
-	}
-
 	// Set up our 'logo' test.
 	text_.setFont(font_);
 
@@ -52,7 +42,7 @@ void StartState::Update(StateManager *state_manager)
 		TwoPlayerState* two_player_state;
 
 		// Make a two player state instance
-		two_player_state = new TwoPlayerState();
+		two_player_state = new TwoPlayerState(font_);
 
 		// Push the two player state onto the state stack
 		state_manager->PushState(two_player_state);
@@ -65,7 +55,7 @@ void StartState::Update(StateManager *state_manager)
 		OnePlayerState* one_player_state;
 
 		// Make a one player state instance
-		one_player_state = new OnePlayerState();
+		one_player_state = new OnePlayerState(font_);
 
 		// Push the one player state onto the state stack
 		state_manager->PushState(one_player_state);
@@ -74,7 +64,7 @@ void StartState::Update(StateManager *state_manager)
 
 void StartState::Render(sf::RenderWindow &sfml_window)
 {
-	//*** Draw the background
+	// Draw the background
 
 	// clear the window to blue for the sky
 	sfml_window.clear(sf::Color::Blue);

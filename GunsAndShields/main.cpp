@@ -1,3 +1,4 @@
+// (c) David Ferguson 2015
 
 // system includes
 #include <SFML/Graphics.hpp>
@@ -7,45 +8,43 @@
 #include "StartState.h"
 
 // TODO LIST
-// currently porting the one player state to work with a view window that follows the camera
-// - Re-write drawing code so things that should stay still stay still, and things that need to move with the player do so (TICK)
-// - Re-write collisions with the side of the screen for bullets and the player.
-// -> Bullets should only dissipear when they hit something or get too far from the player
-// -> Player should only collide with the collidable objects
-// - Limit camera movement around the player
-// -> Should be up from the player so the player can see plenty of space above ground (TICK)
-// -> Player should have some 'dead space' to move in without moving the camera
-// -> Camera shouldn't move up and down when player jumps (TICK)
-// -> Camera shouldn't scroll past the edges of the level.
-
-// Create a camera class with all this extra functionality?
-
-// Decided I'm not interested in doing a single player mode. Focussing on 2 player mode only.
-
-// Mechanics problem where players are encouraged to run into eachother for the duration of the game. Could fix by...
+// (FIXED) Mechanics problem where players are encouraged to run into eachother for the duration of the game. Could fix by...
 // - Make knockback of collision based on momentum or distance.
 // - Make the moving avatar bounce back, but stationary avatars stay still when ran into (IMPLIMENTED)
 // - Make a space in the middle of the stage that can't be passed through, which is moved towards your opponent by shooting them.
 
-// Are shots spammy? This problem might be fixed by fixing the above
-// - Getting a Combo increases knock back.
+// Are shots spammy? This problem might be fixed by fixing the above.
+// - Could increase cooldown time.
+// - Could make it so getting a Combo increases knock back.
 
-// Gotta add some polish
-// - Damange and life display at the top or bottom of the screen during play (TICK)
-// - Stats screen after a game and option to restart or go back to menu
+// Could add lots of polish
+// - Stats screen after a game?
 // - Find some sound effects online
+// - Could make the avatar also the reload bar so the players don't have to look away to see their reloading time
+// -> Idealy if this was a full game this would be an animation and a sound effect. The reloading bar is pretty crappy design.
 
 // Optimise.
-// - Only load text once and pass it in to each state
 // - Look for a way to simplify collision text instead of typing everything for each avatar.
 
 int main()
 {
+	// Load in the font to pass into each state
+	sf::Font font;
+
+	if (!font.loadFromFile("Pacifico.ttf"))
+	{
+		std::cout << "Failed to load font" << std::endl;
+	}
+	else
+	{
+		std::cout << "Font successfully loaded" << std::endl;
+	}
+
 	// create an state manager
 	StateManager state_manager;
 
 	// Initialze the starting state
-	state_manager.ChangeState(new StartState());
+	state_manager.ChangeState(new StartState(font));
 
 	// Create a window
 	sf::RenderWindow sfml_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Guns And Shields");
@@ -71,7 +70,6 @@ int main()
 
 		// Render the scene in the application class
 		state_manager.states_control_.back()->Render(sfml_window);
-
     }
 
     return 0;

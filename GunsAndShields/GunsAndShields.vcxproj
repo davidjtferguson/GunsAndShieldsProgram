@@ -80,7 +80,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AvatarCondition.cpp" />
     <ClCompile Include="blockade.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -98,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blockade.h" />
-    <ClInclude Include="AvatarCondition.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="OnePlayerState.h" />

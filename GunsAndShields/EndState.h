@@ -1,5 +1,5 @@
 // end state
-// Used to signify the end of the game and give players the option to restart or go to menu or quit
+// Used to signify the end of the game and give players the option to go to menu
 
 // application includes
 #include "State.h"
@@ -11,7 +11,7 @@
 class EndState : public State
 {
 public:
-	EndState() : State() {};
+	EndState(sf::Font font) : State(font) {};
 
 	void	Init(),
 			CleanUp(),
@@ -21,8 +21,7 @@ public:
 			Render(sf::RenderWindow &sfml_window);
 
 private:
-	// variables to draw text
-	sf::Font font_;
+	// variable to draw text
 	sf::Text text_;
 };
 

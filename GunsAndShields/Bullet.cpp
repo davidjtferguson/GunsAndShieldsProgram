@@ -11,8 +11,6 @@ void Bullet::Initialize()
 	// Set the size of the SFML rectangle so the program knows what to draw
 	setSize(sf::Vector2f(width_, height_));
 
-	// position needs to be set in relation to the gun position
-	
-	// Set the color to black
+	// Set the color to black. This is re-written depending on the avatar shooting the bullet
 	setFillColor(sf::Color::Black);
 }

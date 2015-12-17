@@ -54,9 +54,6 @@
     <ClCompile Include="blockade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AvatarCondition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EndState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="blockade.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AvatarCondition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EndState.h">

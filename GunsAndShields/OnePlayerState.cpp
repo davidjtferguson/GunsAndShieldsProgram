@@ -2,16 +2,6 @@
 
 void OnePlayerState::Init()
 {
-	if (!font_.loadFromFile("Pacifico.ttf"))
-	{
-		std::cout << "Failed to load font" << std::endl;
-	}
-	else
-	{
-		std::cout << "Font successfully loaded" << std::endl;
-	}
-
-	
 	player_one_.Initialize(50.0f, font_);
 
 	// initialize the camera size
@@ -55,7 +45,7 @@ void OnePlayerState::Update(StateManager *state_manager)
 	sf::Time delta_time = delta_clock_.restart();
 
 	// detect all inputs
-	Inputs(delta_time.asSeconds());
+	Inputs(delta_time.asSeconds(), state_manager);
 
 	// Update everything to do with player 1
 	player_one_.Update(delta_time.asSeconds());
@@ -74,17 +64,22 @@ void OnePlayerState::Update(StateManager *state_manager)
 	}
 }
 
-void OnePlayerState::Inputs(float delta_time)
+void OnePlayerState::Inputs(float delta_time, StateManager *state_manager)
 {
-	//*** Avatar movement
-
 	// All player one's controls are done in their control function
 	player_one_.ProccessInputs(delta_time);
+
+	// If E is pressed
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		// Pop back to the main menu
+		state_manager->PopState();
+	}
 }
 
 void OnePlayerState::CollisionDetection()
 {
-	//*** Check all collisions using bounding boxes
+	// Check all collisions using bounding boxes
 
 	// Get the bounds of p1's shield
 	sf::FloatRect shield_one_box = player_one_.GetShield()->getGlobalBounds();
@@ -128,10 +123,10 @@ void OnePlayerState::Render(sf::RenderWindow &sfml_window)
 	// all objects in the scene that don't change location depending on the view
 	RenderBackground(sfml_window);
 
-	//*** Draw the interface for player one
+	// Draw the interface for player one
 	RenderHUD(sfml_window);
 
-	//*** Draw all the game objects
+	// Draw all the game objects
 	RenderGameObjects(sfml_window);
 
 	// Display all objects

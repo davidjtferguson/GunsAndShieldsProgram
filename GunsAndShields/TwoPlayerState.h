@@ -1,10 +1,9 @@
-// Application class
-// Used to store the game logic
+// TwoPlayerState class
+// Used to store the game logic, collisions and rendering for the two player mode
 
 // system includes
+// Although the final game wouldn't use iostream, I'm keeping it around for debugging.
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
 #include <vector>
 
 // application includes
@@ -19,8 +18,9 @@
 class TwoPlayerState : public State
 {
 public:
-	TwoPlayerState() : State() {};
+	TwoPlayerState(sf::Font font) : State(font) {};
 
+	// Over-write the virtual functions
 	void	Init(),
 			CleanUp(),
 			Pause(),
@@ -41,12 +41,8 @@ private:
 
 	Ground ground_;
 
-	// Load in font for this state
-	sf::Font font_;
-
 	// Clock for delta time
 	sf::Clock delta_clock_;
-
 };
 
 #endif // TWOPLAYERSTATE_H

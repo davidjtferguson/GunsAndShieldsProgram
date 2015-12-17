@@ -6,6 +6,10 @@
 #ifndef GUN_H
 #define GUN_H
 
+// Gun based global defines
+#define BULLET_VELOCITY 250
+#define RELOAD_TIME 0.5f
+
 class Gun : public GameObject
 {
 public:
@@ -20,7 +24,7 @@ public:
 
 private:
 	// Bool to check if the gun is ready to fire
-	// purpouse of this is so players can't fire all the time
+	// purpose of this is so players can't fire all the time
 	bool loaded_;
 
 	// the timer to track now long reloading takes

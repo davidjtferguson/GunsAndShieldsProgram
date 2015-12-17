@@ -1,4 +1,5 @@
 // this class is to control what state is running by using a vector of states
+// I got this class from a friend who got it online somewhere. This is not my work.
 
 #ifndef STATE_MANAGER_H
 #define STATE_MANAGER_H

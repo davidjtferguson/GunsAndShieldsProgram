@@ -1,4 +1,5 @@
 // A class to control the blockade objects
+// Single player only. Unfinished
 
 #include "GameObject.h"
 

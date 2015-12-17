@@ -1,4 +1,4 @@
-// A class to control the 'shield' object infront of the player
+// A class to control the 'shield' object in front of the player
 
 #include "GameObject.h"
 

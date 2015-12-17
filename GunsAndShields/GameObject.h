@@ -1,18 +1,15 @@
 // Base game object
-// Used to display sprites
+// Used to remember things each game object needs
 
-// Global defines
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-
-#define BULLET_VELOCITY 250
-#define RELOAD_TIME 0.5f
-
-#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
+
+// Global defines
+// Screen size is here for each object to base positioning off
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 class GameObject : public sf::RectangleShape
 {

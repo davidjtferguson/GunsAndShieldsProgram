@@ -11,8 +11,7 @@ void Shield::Initialize()
 	// Set the size of the SFML rectangle so the program knows what to draw
 	setSize(sf::Vector2f(width_, height_));
 
-	// position needs to be set in relation to the player position
-	//setPosition(sf::Vector2f(0.f, SCREEN_HEIGHT-100.0f-height_));
-	
 	setFillColor(sf::Color::White);
+
+	// Position is set in the avatar that owns the shield
 }

@@ -2,18 +2,8 @@
 
 void TwoPlayerState::Init()
 {
-	// Load in a font to pass to the AvatarCondition
-	// Load in our font
-	if (!font_.loadFromFile("Pacifico.ttf"))
-	{
-		std::cout << "Failed to load font" << std::endl;
-	}
-	else
-	{
-		std::cout << "Font successfully loaded" << std::endl;
-	}
-
-
+	// Initialise game objects
+	// Pass the player numbers into the avatars so things are set up differently for each
     player_one_.Initialize(1, font_);
 	player_two_.Initialize(2, font_);
 
@@ -60,7 +50,6 @@ void TwoPlayerState::Update(StateManager *state_manager)
 	CollisionDetection();
 
 	// Check if the players have jumped over eachother
-	// If they have, remember for future forces
 	if ((player_one_.getPosition().x+player_one_.GetWidth()*0.5 < player_two_.getPosition().x+player_two_.GetWidth()*0.5))
 	{
 		player_one_.SetOnLeft(true);
@@ -74,24 +63,22 @@ void TwoPlayerState::Update(StateManager *state_manager)
 		player_two_.SetOnLeft(true);
 	}
 
-	// If either player's lives has reached 0, the game is over so pop the state back to the start state
+	// If either player's lives has reached 0, the game is over so go to the end state
 	if (player_one_.GetLives() <= 0 || player_two_.GetLives() <= 0)
 	{
-		// Make a two player state pointer
+		// Make a end state state pointer
 		EndState* end_state;
 
-		// Make a two player state instance
-		end_state = new EndState();
+		// Make a end state state instance
+		end_state = new EndState(font_);
 
-		// Push the two player state onto the state stack
+		// Push the end state onto the state stack
 		state_manager->PushState(end_state);
 	}
 }
 
 void TwoPlayerState::Inputs(float delta_time)
 {
-	//*** Avatar movement
-
 	// All player one's controls are done in their control function
 	player_one_.ProccessInputs(delta_time);
 
@@ -101,7 +88,7 @@ void TwoPlayerState::Inputs(float delta_time)
 
 void TwoPlayerState::CollisionDetection()
 {
-	//*** Check all collisions using bounding boxes
+	// Check all collisions using sfml's bounding boxes
 
 	// Get the bounds of p1's shield
 	sf::FloatRect shield_one_box = player_one_.GetShield()->getGlobalBounds();
@@ -188,15 +175,11 @@ void TwoPlayerState::CollisionDetection()
 		if (bullet_box.intersects(shield_two_box))
 		{
 			// erase the bullet
-			std::cout << "p1 bullet hit p2 shield" << std::endl;
-
 			bullet = player_one_.bullets_.erase(bullet);
 		}
 		else if (bullet_box.intersects(player_two_box))
 		{
 			// erase the bullet
-			std::cout << "p1 bullet hit p2 avatar" << std::endl;
-
 			bullet = player_one_.bullets_.erase(bullet);
 			
 			// Increase damage so next time the knock back is stronger
@@ -212,7 +195,7 @@ void TwoPlayerState::CollisionDetection()
 				player_two_.SetCurrentXVelocity(player_two_.GetMaxXVelocity()*player_two_.GetDamage());
 			}
 
-			// and do a little jump
+			// do a little jump
 			player_two_.SetCurrentYVelocity(player_two_.GetMaxYVelocity()*0.3f);
 			player_two_.SetOnGround(false);
 
@@ -233,15 +216,11 @@ void TwoPlayerState::CollisionDetection()
 		if (bullet_box.intersects(shield_one_box))
 		{
 			// erase the bullet
-			std::cout << "p2 bullet hit p1 shield" << std::endl;
-
 			bullet = player_two_.bullets_.erase(bullet);
 		}
 		else if (bullet_box.intersects(player_one_box))
 		{
 			// erase the bullet
-			std::cout << "p2 bullet hit p1 avatar" << std::endl;
-
 			bullet = player_two_.bullets_.erase(bullet);
 
 			// Increase damage so next time the knock back is stronger
@@ -270,7 +249,7 @@ void TwoPlayerState::CollisionDetection()
 	// If the player is off and below the stage...
 	if (((player_one_.getPosition().y + player_one_.GetHeight()) > ground_.getPosition().y) && (player_one_.getPosition().x + player_one_.GetWidth() < ground_.getPosition().x || player_one_.getPosition().x > ground_.getPosition().x + ground_.GetWidth()))
 	{
-		// Lock their x so they fall straight down
+		// Lock their x velocity so they fall straight down
 		player_one_.setPosition(player_one_.GetPreviousPosition().x, player_one_.getPosition().y);
 	}
 	else if (player_one_box.intersects(ground_box)) // Else, make sure they hit the ground properly
@@ -332,12 +311,12 @@ void TwoPlayerState::CollisionDetection()
 
 void TwoPlayerState::Render(sf::RenderWindow &sfml_window)
 {
-	//*** Draw the background
+	// Draw the background
 
 	// clear the window to blue for the sky
 	sfml_window.clear(sf::Color::Blue);
 
-	// Draw a green square at the bottom for the ground
+	// Draw a green rectangle at the bottom for the ground
 	sfml_window.draw(ground_);
 
 	// Draw a yellow circle in the sky for the sun

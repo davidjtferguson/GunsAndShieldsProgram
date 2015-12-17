@@ -3,8 +3,6 @@
 
 // system includes
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
 #include <vector>
 
 // application includes
@@ -18,7 +16,7 @@
 class StartState : public State
 {
 public:
-	StartState() : State() {};
+	StartState(sf::Font font) : State(font) {};
 
 	void	Init(),
 			CleanUp(),
@@ -29,7 +27,6 @@ public:
 
 private:
 	// variables to draw text
-	sf::Font font_;
 	sf::Text text_;
 };
 

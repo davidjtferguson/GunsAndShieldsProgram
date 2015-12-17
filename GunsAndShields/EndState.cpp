@@ -2,20 +2,10 @@
 
 void EndState::Init()
 {
-	// Load in our font
-	if (!font_.loadFromFile("Pacifico.ttf"))
-	{
-		std::cout << "Failed to load font" << std::endl;
-	}
-	else
-	{
-		std::cout << "Font successfully loaded" << std::endl;
-	}
-
-	// Set up our 'logo' test.
+	// Set up our text that says the game is over
 	text_.setFont(font_);
 
-	text_.setString("GAME! Hit R.");
+	text_.setString("GAME! Press R.");
 
 	text_.setCharacterSize(40);
 
@@ -45,10 +35,10 @@ void EndState::Resume()
 
 void EndState::Update(StateManager *state_manager)
 {
-	// If R is pressed, start the two player state
+	// If R is pressed
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	{
-		// Pop back to the menu
+		// Pop back to the main menu
 		state_manager->PopState();
 		state_manager->PopState();
 	}
