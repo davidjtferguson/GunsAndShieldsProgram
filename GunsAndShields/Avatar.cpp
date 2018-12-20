@@ -46,7 +46,7 @@ void Avatar::Initialize(int player_no, sf::Font font)
 
 	damage_output_.setCharacterSize(20);
 
-	damage_output_.setColor(sf::Color::White);
+	damage_output_.setFillColor(sf::Color::White);
 
 	lives_output_.setFont(font_);
 
@@ -54,7 +54,7 @@ void Avatar::Initialize(int player_no, sf::Font font)
 
 	lives_output_.setCharacterSize(20);
 
-	lives_output_.setColor(sf::Color::White);
+	lives_output_.setFillColor(sf::Color::White);
 
 	// Set the starting position and colour of each avatar differently
 	if (player_no_ == 1)
@@ -72,8 +72,8 @@ void Avatar::Initialize(int player_no, sf::Font font)
 		lives_output_.setPosition(SCREEN_WIDTH*0.3, SCREEN_HEIGHT*0.9);
 
 		// Colour it the same as the avatar so players know who it belongs to
-		damage_output_.setColor(sf::Color::Magenta);
-		lives_output_.setColor(sf::Color::Magenta);
+		damage_output_.setFillColor(sf::Color::Magenta);
+		lives_output_.setFillColor(sf::Color::Magenta);
 	}
 
 	if (player_no_ == 2)
@@ -89,8 +89,8 @@ void Avatar::Initialize(int player_no, sf::Font font)
 		damage_output_.setPosition(SCREEN_WIDTH*0.6, SCREEN_HEIGHT*0.85);
 		lives_output_.setPosition(SCREEN_WIDTH*0.6, SCREEN_HEIGHT*0.9);
 
-		damage_output_.setColor(sf::Color::Yellow);
-		lives_output_.setColor(sf::Color::Yellow);
+		damage_output_.setFillColor(sf::Color::Yellow);
+		lives_output_.setFillColor(sf::Color::Yellow);
 	}
 
 	// Initialize the other game objects under us

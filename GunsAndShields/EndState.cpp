@@ -9,7 +9,7 @@ void EndState::Init()
 
 	text_.setCharacterSize(40);
 
-	text_.setColor(sf::Color::White);
+	text_.setFillColor(sf::Color::White);
 
 	text_.setPosition(SCREEN_WIDTH*0.3, SCREEN_HEIGHT*0.5);
 }

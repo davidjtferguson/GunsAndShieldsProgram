@@ -19,6 +19,9 @@ $RECYCLE.BIN/
 
 # Debugging
 */Debug
+Debug
+.vs
+*/Release
 
 # =========================
 # Operating System Files
