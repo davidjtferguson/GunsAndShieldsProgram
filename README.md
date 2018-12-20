@@ -18,4 +18,4 @@ On the end screen, press R to go back to the main menu.
 
 Technical details:
 
-This game was made with visual studio 2010 and SFML 2.3.1 in the file path "M:\SFML-2.3.1". SFML 2.3.1 will have to be downloaded and in this position to run this project or you could set up SFML in the settings according to the SFML setup tutorial if you want to use a newer version of SFML or a different file path.
+This game is developed with visual studio 2017 and SFML 2.5.1 in the file path "C:\dev\SFML-2.5.1". SFML 2.5.1 will have to be downloaded and in this position to run this project or you could set up SFML in the settings according to the SFML setup tutorial if you want to use a newer version of SFML or a different file path.
