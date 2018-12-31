@@ -1,5 +1,3 @@
-// (c) David Ferguson 2015
-
 // system includes
 #include <SFML/Graphics.hpp>
 
