@@ -47,19 +47,6 @@ void StartState::Update(StateManager *state_manager)
 		// Push the two player state onto the state stack
 		state_manager->PushState(two_player_state);
 	}
-
-	// If I is pressed, start the one player state
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
-	{
-		// Make a one player state pointer
-		OnePlayerState* one_player_state;
-
-		// Make a one player state instance
-		one_player_state = new OnePlayerState(font_);
-
-		// Push the one player state onto the state stack
-		state_manager->PushState(one_player_state);
-	}
 }
 
 void StartState::Render(sf::RenderWindow &sfml_window)

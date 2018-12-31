@@ -125,14 +125,12 @@
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="AvatarCondition.cpp" />
-    <ClCompile Include="blockade.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="OnePlayerState.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="StartState.cpp" />
     <ClCompile Include="State.cpp" />
@@ -142,13 +140,11 @@
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
     <ClInclude Include="AvatarCondition.h" />
-    <ClInclude Include="blockade.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Gun.h" />
-    <ClInclude Include="OnePlayerState.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />

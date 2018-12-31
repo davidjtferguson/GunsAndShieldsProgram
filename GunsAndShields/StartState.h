@@ -7,7 +7,6 @@
 
 // application includes
 #include "State.h"
-#include "OnePlayerState.h"
 #include "TwoPlayerState.h"
 
 #ifndef STARTSTATE_H
