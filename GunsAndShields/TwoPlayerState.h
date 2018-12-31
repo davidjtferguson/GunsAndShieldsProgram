@@ -29,8 +29,7 @@ public:
 			Render(sf::RenderWindow &sfml_window);
 
 private:
-	// Take in all inputs
-	void Inputs(float delta_time);
+	void GroundCollision(Avatar &avatar);
 
 	// Check all collisions
 	void CollisionDetection();

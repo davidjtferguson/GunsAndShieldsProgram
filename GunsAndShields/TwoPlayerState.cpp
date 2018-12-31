@@ -37,29 +37,22 @@ void TwoPlayerState::Update(StateManager *state_manager)
 	// Create delta time based off the delta clock reading
 	sf::Time delta_time = delta_clock_.restart();
 
-	// detect all inputs
-	Inputs(delta_time.asSeconds());
-
-	// Update everything to do with player 1
+	// Update everything for players
 	player_one_.Update(delta_time.asSeconds());
-
-	// Update everything to do with player 2
 	player_two_.Update(delta_time.asSeconds());
 
 	// Update collision detection
 	CollisionDetection();
 
 	// Check if the players have jumped over eachother
-	if ((player_one_.getPosition().x+player_one_.GetWidth()*0.5 < player_two_.getPosition().x+player_two_.GetWidth()*0.5))
+	if ((player_one_.getPosition().x + player_one_.GetWidth() * 0.5 < player_two_.getPosition().x + player_two_.GetWidth() * 0.5))
 	{
 		player_one_.SetOnLeft(true);
-
 		player_two_.SetOnLeft(false);
 	}
 	else
 	{
 		player_one_.SetOnLeft(false);
-
 		player_two_.SetOnLeft(true);
 	}
 
@@ -75,15 +68,6 @@ void TwoPlayerState::Update(StateManager *state_manager)
 		// Push the end state onto the state stack
 		state_manager->PushState(end_state);
 	}
-}
-
-void TwoPlayerState::Inputs(float delta_time)
-{
-	// All player one's controls are done in their control function
-	player_one_.ProccessInputs(delta_time);
-
-	// player two's controls
-	player_two_.ProccessInputs(delta_time);
 }
 
 void TwoPlayerState::CollisionDetection()
@@ -116,15 +100,15 @@ void TwoPlayerState::CollisionDetection()
 		// This is why players are set an extra 10 units away from eachother.
 		if (player_one_.GetOnLeft())
 		{
-			if (player_one_.GetCurrentXVelocity() > (player_two_.GetCurrentXVelocity()*-1))
+			if (player_one_.GetCurrentXVelocity() > (player_two_.GetCurrentXVelocity() * -1))
 			{
 				player_one_.SetCurrentXVelocity(-player_one_.GetMaxXVelocity());
-				player_one_.setPosition(player_one_.getPosition().x-10, player_one_.getPosition().y);
+				player_one_.setPosition(player_one_.getPosition().x - 10, player_one_.getPosition().y);
 			}
 			else if ((player_two_.GetCurrentXVelocity()*-1) > player_one_.GetCurrentXVelocity())
 			{
 				player_two_.SetCurrentXVelocity(player_two_.GetMaxXVelocity());
-				player_two_.setPosition(player_two_.getPosition().x+10, player_two_.getPosition().y);
+				player_two_.setPosition(player_two_.getPosition().x + 10, player_two_.getPosition().y);
 			}
 			else if (player_one_.GetCurrentXVelocity() == (player_two_.GetCurrentXVelocity()*-1))
 			{
@@ -137,12 +121,12 @@ void TwoPlayerState::CollisionDetection()
 			if ((player_one_.GetCurrentXVelocity()*-1) > player_two_.GetCurrentXVelocity())
 			{
 				player_one_.SetCurrentXVelocity(player_one_.GetMaxXVelocity());
-				player_one_.setPosition(player_one_.getPosition().x+10, player_one_.getPosition().y);
+				player_one_.setPosition(player_one_.getPosition().x + 10, player_one_.getPosition().y);
 			}
 			else if (player_two_.GetCurrentXVelocity() > (player_one_.GetCurrentXVelocity()*-1))
 			{
 				player_two_.SetCurrentXVelocity(-player_two_.GetMaxXVelocity());
-				player_two_.setPosition(player_two_.getPosition().x-10, player_two_.getPosition().y);
+				player_two_.setPosition(player_two_.getPosition().x - 10, player_two_.getPosition().y);
 			}
 			else if (player_one_.GetCurrentXVelocity() == (player_two_.GetCurrentXVelocity()*-1))
 			{
@@ -246,67 +230,33 @@ void TwoPlayerState::CollisionDetection()
 		}
 	}
 
-	// If the player is off and below the stage...
-	if (((player_one_.getPosition().y + player_one_.GetHeight()) > ground_.getPosition().y) && (player_one_.getPosition().x + player_one_.GetWidth() < ground_.getPosition().x || player_one_.getPosition().x > ground_.getPosition().x + ground_.GetWidth()))
-	{
-		// Lock their x velocity so they fall straight down
-		player_one_.setPosition(player_one_.GetPreviousPosition().x, player_one_.getPosition().y);
-	}
-	else if (player_one_box.intersects(ground_box)) // Else, make sure they hit the ground properly
-	{
-		// the player has no y velocity now
-		player_one_.SetCurrentYVelocity(0.0f);
+	GroundCollision(player_one_);
+	GroundCollision(player_two_);
+}
 
-		// make sure the player is perfectly on the ground
-		player_one_.setPosition(sf::Vector2f(player_one_.getPosition().x, ground_.getPosition().y - player_one_.GetHeight()));
-		
-		player_one_.SetOnGround(true);
-	}
-	else if (!player_one_box.intersects(ground_box)) // If the avatar is not on the ground, fall
-	{
-		player_one_.SetOnGround(false);
-	}
+void TwoPlayerState::GroundCollision(Avatar &avatar)
+{
+	sf::FloatRect avatar_box = avatar.getGlobalBounds();
+	sf::FloatRect ground_box = ground_.getGlobalBounds();
 
-	// Same for player two.
-	// If the player is off and below the stage...
-	if (((player_two_.getPosition().y + player_two_.GetHeight()) > ground_.getPosition().y) && (player_two_.getPosition().x + player_two_.GetWidth() < ground_.getPosition().x || player_two_.getPosition().x > ground_.getPosition().x + ground_.GetWidth()))
-	{
-		// Lock their x so they fall straight down
-		player_two_.setPosition(player_two_.GetPreviousPosition().x, player_two_.getPosition().y);
-	}
-	else if (player_two_box.intersects(ground_box)) // Else, make sure they hit the ground properly
-	{
-		// the player has no y velocity now
-		player_two_.SetCurrentYVelocity(0.0f);
-
-		// make sure the player is perfectly on the ground
-		player_two_.setPosition(sf::Vector2f(player_two_.getPosition().x, ground_.getPosition().y - player_two_.GetHeight()));
-		
-		player_two_.SetOnGround(true);
-	}
-	else if (!player_two_box.intersects(ground_box)) // If the avatar is not on the ground, fall
-	{
-		player_two_.SetOnGround(false);
-	}
-
-	/* Old way of doing collision. This didn't lock the player when they where past the point of recovery, but did make players jump up if they hit the side of the stage
-	if (player_two_.GetOnGround() == false && player_two_box.intersects(ground_box))
+	// Ground collision. TODO: Deal with players hitting side of stage
+	if (avatar.GetOnGround() == false && avatar_box.intersects(ground_box))
 	{
 		// the player is on the ground again
-		player_two_.SetOnGround(true);
+		avatar.SetOnGround(true);
 
 		// the player has no y velocity now
-		player_two_.SetCurrentYVelocity(0.0f);
+		avatar.SetCurrentYVelocity(0.0f);
 
 		// make sure the player is perfectly on the ground
-		player_two_.setPosition(sf::Vector2f(player_two_.getPosition().x, ground_.getPosition().y - player_two_.GetHeight()));
+		avatar.setPosition(sf::Vector2f(avatar.getPosition().x, ground_.getPosition().y - avatar.GetHeight()));
 	}
 
 	// If the player is not on the ground, fall
-	if (!player_two_box.intersects(ground_box))
+	if (!avatar_box.intersects(ground_box))
 	{
-		player_two_.SetOnGround(false);
-	} */
+		avatar.SetOnGround(false);
+	}
 }
 
 void TwoPlayerState::Render(sf::RenderWindow &sfml_window)

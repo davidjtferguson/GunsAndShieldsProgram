@@ -5,13 +5,14 @@ void StartState::Init()
 	// Set up our 'logo' test.
 	text_.setFont(font_);
 
-	text_.setString("Guns And Shields! Press S to start two player mode.");
+	text_.setString("Guns And Shields! Press S to fight!");
 
 	text_.setCharacterSize(20);
 
 	text_.setFillColor(sf::Color::White);
 
-	text_.setPosition(SCREEN_WIDTH*0.3, SCREEN_HEIGHT*0.5);
+	// Need to position better - screen with should be half screen width - half text length
+	text_.setPosition(SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.5);
 }
 
 void StartState::CleanUp()
@@ -35,6 +36,9 @@ void StartState::Resume()
 
 void StartState::Update(StateManager *state_manager)
 {
+	// TODO: re-write to process events and activate on any key detection instead of this if
+	// https://www.sfml-dev.org/tutorials/2.5/window-events.php
+
 	// If S is pressed, start the two player state
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{

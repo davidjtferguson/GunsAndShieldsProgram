@@ -3,11 +3,12 @@
 void Avatar::Initialize(int player_no, sf::Font font)
 {
 	// Set all variables to how they should be to begin with
+	// TODO: Set to fractions of SCREEN_[dimentions]
 	width_ = 50;
-
 	height_ = 50;
 
 	// Set the size of the SFML rectangle so the program knows what to draw
+	// ... wait, what? If there's a sfml size why do I even have my own width and height variables? sigh. todo.
 	setSize(sf::Vector2f(width_, height_));
 
 	// Play with these two values to control how the avatar moves in the x axis
@@ -36,40 +37,30 @@ void Avatar::Initialize(int player_no, sf::Font font)
 
 	font_ = font;
 
-	// Set up the text boxes
+	// Set up the text boxes. text updated in update
 	damage_output_.setFont(font_);
-
-	// std::to_string can't use a float, so we need to cast damage_ as a type that can be cast
-	// damage_*DAMAGE_EXAGGERATION because the actual value of damage are quite low so don't convay to the players the danger they are in
-	// Players are at 'kill %' around 70-100 depending on their stage position and directional influence
-	damage_output_.setString(std::to_string(static_cast<long long>(damage_*DAMAGE_EXAGGERATION)) + "%");
-
 	damage_output_.setCharacterSize(20);
-
 	damage_output_.setFillColor(sf::Color::White);
 
 	lives_output_.setFont(font_);
-
-	lives_output_.setString(std::to_string(static_cast<long long>(lives_)));
-
 	lives_output_.setCharacterSize(20);
-
 	lives_output_.setFillColor(sf::Color::White);
 
 	// Set the starting position and colour of each avatar differently
+	// TODO: review consistancy of spacing and functionalise
 	if (player_no_ == 1)
 	{
-		previous_position_ = sf::Vector2f(50.0f, SCREEN_HEIGHT-100.0f-height_);
+		previous_position_ = sf::Vector2f(50.0f, SCREEN_HEIGHT - 100.0f - height_);
 
-		setPosition(sf::Vector2f(50.0f, SCREEN_HEIGHT-100.0f-height_));
+		setPosition(sf::Vector2f(50.0f, SCREEN_HEIGHT - 100.0f - height_));
 	
 		setFillColor(sf::Color::Magenta);
 
 		on_left_ = true;
 
 		// Position the output text
-		damage_output_.setPosition(SCREEN_WIDTH*0.3, SCREEN_HEIGHT*0.85);
-		lives_output_.setPosition(SCREEN_WIDTH*0.3, SCREEN_HEIGHT*0.9);
+		damage_output_.setPosition(SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.85);
+		lives_output_.setPosition(SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.9);
 
 		// Colour it the same as the avatar so players know who it belongs to
 		damage_output_.setFillColor(sf::Color::Magenta);
@@ -78,16 +69,16 @@ void Avatar::Initialize(int player_no, sf::Font font)
 
 	if (player_no_ == 2)
 	{
-		previous_position_ = sf::Vector2f(SCREEN_WIDTH-100.0f, SCREEN_HEIGHT-100.0f-height_);
+		previous_position_ = sf::Vector2f(SCREEN_WIDTH - 100.0f, SCREEN_HEIGHT - 100.0f - height_);
 
-		setPosition(sf::Vector2f(SCREEN_WIDTH-100.0f, SCREEN_HEIGHT-100.0f-height_));
+		setPosition(sf::Vector2f(SCREEN_WIDTH - 100.0f, SCREEN_HEIGHT - 100.0f - height_));
 	
 		setFillColor(sf::Color::Yellow);
 		
 		on_left_ = false;
 
-		damage_output_.setPosition(SCREEN_WIDTH*0.6, SCREEN_HEIGHT*0.85);
-		lives_output_.setPosition(SCREEN_WIDTH*0.6, SCREEN_HEIGHT*0.9);
+		damage_output_.setPosition(SCREEN_WIDTH * 0.6, SCREEN_HEIGHT * 0.85);
+		lives_output_.setPosition(SCREEN_WIDTH * 0.6, SCREEN_HEIGHT * 0.9);
 
 		damage_output_.setFillColor(sf::Color::Yellow);
 		lives_output_.setFillColor(sf::Color::Yellow);
@@ -100,9 +91,13 @@ void Avatar::Initialize(int player_no, sf::Font font)
 
 void Avatar::Update(float delta_time)
 {
-	// Update the info to go on screen
+	ProccessInputs(delta_time);
+
+	// std::to_string can't use a float, so we need to cast damage_ as a type that can be cast
+	// damage_*DAMAGE_EXAGGERATION because the actual value of damage are quite low so don't convay to the players the danger they are in
+	// Players are at 'kill %' around 70-100 depending on their stage position and directional influence
 	// In theory this could only be changed when the values change for optimization but I think it's less messy to do it this way
-	damage_output_.setString(std::to_string(static_cast<long long>(damage_*DAMAGE_EXAGGERATION)) + "%");
+	damage_output_.setString(std::to_string(static_cast<long long>(damage_ * DAMAGE_EXAGGERATION)) + "%");
 	lives_output_.setString(std::to_string(static_cast<long long>(lives_)));
 
 	// Remember the current position before moving, so we can check if we've gone to a position we shouldn't have and go back to this position
@@ -112,7 +107,7 @@ void Avatar::Update(float delta_time)
 	if (!gun_.GetLoaded())
 	{
 		// add to reloading in seconds
-		gun_.SetReloading(gun_.GetReloading() + (delta_time));
+		gun_.SetReloading(gun_.GetReloading() + delta_time);
 
 		// If we have been reloading for long enough
 		if (gun_.GetReloading() > RELOAD_TIME)
@@ -154,6 +149,7 @@ void Avatar::Update(float delta_time)
 		if (on_left_ == true)
 		{
 			// shield up and right of the avatar
+			// TODO: use SCREEN_[dimentions] instead of rando numbers
 			shield_.setPosition(getPosition() + sf::Vector2f(GetWidth() + 10.0f, GetHeight() * -0.09f));
 
 			// Gun down and right of the avatar
@@ -206,7 +202,7 @@ void Avatar::Update(float delta_time)
 
 		current_x_velocity_ = 0;
 
-		setPosition(SCREEN_WIDTH*0.5, 0.f);
+		setPosition(SCREEN_WIDTH * 0.5, 0.f);
 	}
 }
 
@@ -333,7 +329,7 @@ void Avatar::Decelerate(long double delta_time)
 	if (current_x_velocity_ > 0)
 	{
 		// sfml move based on our current velocity
-		move(current_x_velocity_*delta_time, 0.0f);
+		move(current_x_velocity_ * delta_time, 0.0f);
 
 		// Reduce our velocity
 		// If our velocity has become less than acceleration, set it to 0
@@ -391,17 +387,7 @@ void Avatar::Move(double delta_time)
 	}
 
 	// Set the position based on the velocities
-	move(current_x_velocity_ * delta_time, -current_y_velocity_*delta_time);
-	
-	/* Used to use this before falling was a feature. Changed mechanics so now it doesn't matter if the avatars leave the screen because they'll be falling to their deaths out there
-
-	// Make sure the avatar doesn't go too far in the x axis
-	if (getPosition().x < 0 || getPosition().x > (SCREEN_WIDTH - width_))
-	{
-		setPosition(previous_position_.x, getPosition().y);
-		SetCurrentXVelocity(0);
-	}
-	*/
+	move(current_x_velocity_ * delta_time, -current_y_velocity_ * delta_time);
 }
 
 void Avatar::Render(sf::RenderWindow &sfml_window)

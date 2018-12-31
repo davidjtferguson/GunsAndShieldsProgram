@@ -2,8 +2,8 @@
 
 void Shield::Initialize()
 {
+	// TODO: Set to fractions of SCREEN_[dimentions]
 	width_ = 6;
-
 	height_ = 30;
 
 	held_up_ = true;

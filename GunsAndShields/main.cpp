@@ -44,8 +44,9 @@ int main()
 	// Initialze the starting state
 	state_manager.ChangeState(new StartState(font));
 
-	// Create a window
-	sf::RenderWindow sfml_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Guns And Shields");
+	// Create a fullscreen window (I want to up the general resolution so fullscreen looks good, but everything's tied to absolute values)
+	sf::RenderWindow sfml_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Guns And Shields", sf::Style::Fullscreen);
+	// sf::RenderWindow sfml_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Guns And Shields");
 
 	// Set the framerate to be consistent
 	sfml_window.setFramerateLimit(60);
@@ -63,10 +64,8 @@ int main()
 				sfml_window.close();
 		}
 
-		// Update everything within the update function. This includes proccessing events
+		// Update everything. This includes proccessing events
         state_manager.states_control_.back()->Update(&state_manager);
-
-		// Render the scene in the application class
 		state_manager.states_control_.back()->Render(sfml_window);
     }
 

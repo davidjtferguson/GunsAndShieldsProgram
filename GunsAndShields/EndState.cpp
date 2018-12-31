@@ -11,7 +11,7 @@ void EndState::Init()
 
 	text_.setFillColor(sf::Color::White);
 
-	text_.setPosition(SCREEN_WIDTH*0.3, SCREEN_HEIGHT*0.5);
+	text_.setPosition(SCREEN_WIDTH * 0.3, SCREEN_HEIGHT * 0.5);
 }
 
 void EndState::CleanUp()
@@ -36,6 +36,7 @@ void EndState::Resume()
 void EndState::Update(StateManager *state_manager)
 {
 	// If R is pressed
+	// TODO: Use events
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	{
 		// Pop back to the main menu
@@ -47,6 +48,9 @@ void EndState::Update(StateManager *state_manager)
 void EndState::Render(sf::RenderWindow &sfml_window)
 {
 	// Don't clear the background so the last frame of the match is still displayed
+	// TODO: This causes a horrible tearing event as all moving objects switch between their buffered and present location.
+	// ... should probably re-write for some kind of results screen. but at least need to render current state to texture and show that
+	// instead of the awful flicking between frames effect
 
 	// draw the text
 	sfml_window.draw(text_);

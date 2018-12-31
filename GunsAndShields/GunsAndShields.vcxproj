@@ -126,7 +126,6 @@
     <ClCompile Include="Avatar.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EndState.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="main.cpp" />

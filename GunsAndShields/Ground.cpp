@@ -2,7 +2,7 @@
 
 void Ground::Initialize()
 {
-	width_ = SCREEN_WIDTH*0.8f;
+	width_ = SCREEN_WIDTH * 0.8f;
 
 	height_ = 20.0f;
 
@@ -10,7 +10,7 @@ void Ground::Initialize()
 	setSize(sf::Vector2f(width_, height_));
 
 	// Place at the bottom of the screen
-	setPosition(sf::Vector2f(SCREEN_WIDTH*0.1f, SCREEN_HEIGHT-100.0f));
+	setPosition(sf::Vector2f(SCREEN_WIDTH * 0.1f, SCREEN_HEIGHT - 100.0f));
 
 	// Set the color to green
 	setFillColor(sf::Color::Green);

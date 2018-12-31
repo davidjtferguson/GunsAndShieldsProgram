@@ -2,8 +2,8 @@
 
 void Bullet::Initialize()
 {
+	// TODO: set to some fraction of SCREEN_[dimentions]
 	width_ = 5;
-
 	height_ = 5;
 
 	move_right_ = true;

@@ -2,8 +2,8 @@
 
 void Gun::Initialize()
 {
+	// TODO: Set to fractions of SCREEN_[dimentions]
 	width_ = 7;
-
 	height_ = 7;
 
 	loaded_ = true;

@@ -1,5 +1,4 @@
 // A class to control the ground objects
-// If to expand the single player mode, this would have lots more functionality
 
 #include "GameObject.h"
 
