@@ -124,7 +124,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Avatar.cpp" />
-    <ClCompile Include="AvatarCondition.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -139,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Avatar.h" />
-    <ClInclude Include="AvatarCondition.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="GameObject.h" />
